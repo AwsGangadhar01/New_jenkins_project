@@ -1,0 +1,58 @@
+[
+  {
+    "ParameterKey": "MioName",
+    "ParameterValue": "mio225_legal_invoices"
+  },
+  {
+    "ParameterKey": "MioNumber",
+    "ParameterValue": "225"
+  },
+  {
+    "ParameterKey": "WorkflowName",
+    "ParameterValue": "brightflag"
+  },
+  {
+    "ParameterKey": "Owner",
+    "ParameterValue": "Mount_Sahyadri"
+  },
+  {
+    "ParameterKey": "ENV",
+    "ParameterValue": "dev"
+  },
+  {
+    "ParameterKey": "S3Env",
+    "ParameterValue": "DEV"
+  },
+  {
+    "ParameterKey": "BucketName",
+    "ParameterValue": "synintegration"
+  },
+  {
+    "ParameterKey": "AWSGlueRole",
+    "ParameterValue": "arn:aws:iam::259898999972:role/dda_glue_common"
+  },
+  {
+    "ParameterKey": "RegionName",
+    "ParameterValue": "eu-central-1"
+  },
+  {
+    "ParameterKey": "ExtractionGlueJobName",
+    "ParameterValue": "extr"
+  },
+  {
+    "ParameterKey": "RefdataExtractionGlueJobName",
+    "ParameterValue": "refdata_extr"
+  },
+  {
+    "ParameterKey": "LoadGlueJobName",
+    "ParameterValue": "load"
+  },
+  {
+    "ParameterKey": "ConnectionType",
+    "ParameterValue": "mio_dev"
+  },
+  {
+    "ParameterKey": "SynddfileBucketName",
+    "ParameterValue": "synddfile"
+  }
+]
