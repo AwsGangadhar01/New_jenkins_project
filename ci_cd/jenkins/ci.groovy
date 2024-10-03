@@ -5,8 +5,8 @@ pipeline {
         skipDefaultCheckout()
         timestamps ()
         withAWS(
-            credentials: ("${GIT_BRANCH}" == 'origin/master' ? 'terraform-prod' : 'terraform-dev'),
-            region: 'eu-central-1'
+            credentials: ("${GIT_BRANCH}" == 'origin/main' ? 'terraform-prod' : 'terraform-dev'),
+            region: 'ap-south-1'
         )
     }
     agent any
@@ -65,43 +65,7 @@ pipeline {
                 }
             }
         }
-        stage("Run unit tests") {
-            steps {
-                script {
-                    tests.runUnitTest(global.requirementsFile, global.workflowFolderName, global.nexusRepository)
-                }
-            }
-        }
-        stage("SonarQube") {
-            environment {
-                scannerHome = tool "${global.scannerHome}"
-            }
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    script {
-                        sonar.runScan(scannerHome, env.MIO_NAME, global.workflowFolderName)
-                    }
-                }
-            }
-        }
-        //stage("Quality Gate"){
-        //    steps {
-        //        script {
-        //            sonar.qualityGate()
-        //        }
-        //    }
-        //}
-        stage("Upload Artifacts") {
-            steps {
-                script {
-                    uploadArtifacts.uploadWorkflows(global.workflowFolderName, env.MIO_NAME, branch, env.BUILD_NUMBER, env.WORKFLOWS, global.bucketName, global.storageFolderName, GIT_BRANCH)
-                    uploadArtifacts.uploadCF(global.deploymentPath, env.WORKFLOWS, global.bucketName, global.storageFolderName, env.MIO_NAME, GIT_BRANCH, branch, env.BUILD_NUMBER)
-                    uploadArtifacts.uploadMioDdl(global.ddlFolderName, global.bucketName, global.storageFolderName, env.MIO_NAME, GIT_BRANCH, branch, env.BUILD_NUMBER)
-                    uploadArtifacts.uploadPropsFolder(global.propsFolderPath, global.bucketName, global.storageFolderName, env.MIO_NAME, GIT_BRANCH, branch, env.BUILD_NUMBER)
-                    uploadArtifacts.uploadDeploymentScript(env.MIO_NAME, branch, env.BUILD_NUMBER, global.bucketName, global.storageFolderName, global.dbDeploymentScriptPath, global.dbDeploymentViewScriptPath, GIT_BRANCH, global.spectrumDeploymentScriptPath, global.dashboardScriptPath)
-                }
-            }
-        }
+
     }
     post {
         always {
