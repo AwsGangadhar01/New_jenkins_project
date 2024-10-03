@@ -72,35 +72,7 @@ pipeline {
                 }
             }
         }         
-       stage("Database Deployment") {
-           steps {
-               script {
-                    prepareDir.propsCheck(global.localPropsPath)
-                    def db_host = dbDeployment.setDbHost(env.ENV)
 
-                    USECASE_GIT_BRANCH = setParameter.setUsecaseGitBranch(GIT_BRANCH)
-                    println"${USECASE_GIT_BRANCH}"
-                    sh "mkdir -p ${global.usecaseProjectFolder}"
-                    dir("${global.usecaseProjectFolder}") {
-                        git.clone(global.usecaseGitUrl, USECASE_GIT_BRANCH)
-                    }
-
-                    dbDeployment.runDbDeployment_with_usecase(global.jenkinsCredentialIdDb,         // Jenkins credentials used for DB
-                        db_host, global.dbPort, global.dbName,                                      // DB parameters
-                        env.BUILD_NUMBER,
-                        local.MIO_CODE ?: MIO_NUMBER,                                               // MIO_CODE should be used as prefix for tables/views
-                        local.TARGET_SCHEMA, local.PROJECT_FOLDER, global.usecaseProjectFolder,
-                        local.DROP_TABLE, local.DROP_COLUMN, local.ALTER_COLUMN,
-                        local.BACKUP_ENABLED,                                                       // Backup tables on alter/delete,
-                        local.MIO_HAS_NUMBER                                                        // if the project is mio with number (e.g., mio100)
-                    )
-
-                   // Spectrum deployment
-                   dbDeployment.spectrumDeployment(global.jenkinsCredentialIdDb, env.WORKFLOWS, db_host, global.dbPort, global.dbName, env.BUILD_NUMBER, MIO_NUMBER, env.ENV, local.TARGET_SPECTRUM_SCHEMA, local.SPECTRUM_PROJECT_FOLDER)
-               }
-           }
-       }
-    }
     post {
         always {
             script {
