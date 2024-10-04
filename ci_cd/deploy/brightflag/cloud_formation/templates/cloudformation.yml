@@ -3,7 +3,7 @@ Description: "AWS Glue Workflow stack"
 Parameters:
   AWSGlueRole:
     Type: String
-    Default: "arn:aws:iam::259898999972:role/dda_glue_common"
+    Default: "arn:aws:iam::471112749040:role/AwsGlueRole"
     Description: IAM role for AWS GLue.
   ENV:
     Type: String
@@ -18,17 +18,10 @@ Parameters:
   BucketName:
     Type: String
     MinLength: "1"
-    Default: synintegration
+    Default: mycicdartifactsbucket
     AllowedValues:
-      - synintegration
-    Description:  Ingestion Bucket
-  SynddfileBucketName:
-    Type: String
-    MinLength: "1"
-    Default: synddfile
-    AllowedValues:
-      - synddfile
-    Description: Manual Ingestion Bucket  
+      - mycicdartifactsbucket
+    Description:  Ingestion Bucket 
   MioName:
     Type: String
     MinLength: "1"
@@ -65,9 +58,9 @@ Parameters:
   RegionName:
     Type: String
     MinLength: "1"
-    Default: eu-central-1
+    Default: ap-south-1
     AllowedValues:
-      - eu-central-1
+      - ap-south-1
     Description:  AWS Region
   SecretName:
     Type: String
@@ -77,17 +70,9 @@ Parameters:
     Type: String
     MinLength: "1"
     Description: AWS Topic ARN Name
-  AWSLambdaRole:
-    Type: String
-    Default: "arn:aws:iam::259898999972:role/dda_lambda_common"
-    Description: AWS lambda role ARN for brightflag lambda
   AccountNumberAWS:
     Type: Number
-    Default: 170605107178
-  SynConAccountNumber:
-    Type: Number
-    Default: 170605107178    
-
+    Default: 471112749040
 Conditions:   
   CreateScheduleTrigger: !Equals [ !Ref S3Env, PROD ]
 Resources:
@@ -98,7 +83,7 @@ Resources:
         Name: pythonshell
         PythonVersion: 3
         ScriptLocation: !Sub "s3://${BucketName}/${S3Env}/scripts_glue/mio225_legal_invoices/${WorkflowName}/glue_jobs/${MioName}_${WorkflowName}_${LoadGlueJobName}.py"
-      GlueVersion: 1.0
+      GlueVersion: 4.0
       Connections:
         Connections:
           - !Ref ConnectionType
