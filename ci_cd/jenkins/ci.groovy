@@ -16,6 +16,7 @@ pipeline {
     stages {
         stage("Clean") {
             steps {
+                sh echo "--------Clean stage---------------------------------------------" 
                 script {
                     //cleanup workspace
                     cleanWs()
@@ -43,11 +44,15 @@ pipeline {
             }
         }
            stage('init') {
+               steps {
+                   sh echo "--------Init stage---------------------------------------------" 
       scripts {
         library "jenkins-shared-library@main"
       }
+               }
         stage("Git") {
             steps {
+                sh echo "--------Git stage---------------------------------------------" 
                 script {
                     git.advancedClone(env.GIT_URL, GIT_BRANCH, env.GIT_COMMIT)
 
