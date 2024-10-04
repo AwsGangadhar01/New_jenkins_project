@@ -42,6 +42,10 @@ pipeline {
                 }
             }
         }
+           stage('init') {
+      scripts {
+        library "shared-library@main"
+      }
         stage("Git") {
             steps {
                 script {
@@ -52,16 +56,6 @@ pipeline {
                     dir("${global.smartmartFolderName}") {
                         git.clone(global.gitUrlSmartmart, global.gitBranchSmartmart)
                     }
-                }
-            }
-        }
-        stage("Checker") {
-            steps {
-                script {
-                    prepareDir.glueJobCheck(global.workflowFolderName, env.WORKFLOWS, global.dbDeploymentScriptPath, global.spectrumDeploymentScriptPath)
-                    prepareDir.cfTemplateErrorAndComplianceCheck(global.deploymentPath, env.WORKFLOWS,
-                                                                global.cfTemplateShortPath, global.cfnGuardDataFolder,
-                                                                global.cnfGuardRulesetFilename)
                 }
             }
         }
