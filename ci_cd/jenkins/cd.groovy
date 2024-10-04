@@ -6,7 +6,7 @@ pipeline {
         timestamps ()
 		withAWS(
             credentials: ("${ENV}" == 'PROD' ? 'terraform-prod' : 'terraform-dev'),
-            region: 'eu-central-1'
+            region: 'ap-south-1'
         )
     }
     agent any
