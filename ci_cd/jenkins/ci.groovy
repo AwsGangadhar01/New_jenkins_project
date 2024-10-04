@@ -1,4 +1,4 @@
-@Library('jenkins-shared-library@v4.0') _
+// @Library('jenkins-shared-library@v4.0') _
 
 pipeline {
     options {
@@ -44,7 +44,7 @@ pipeline {
         }
            stage('init') {
       scripts {
-        library "shared-library@main"
+        library "jenkins-shared-library@main"
       }
         stage("Git") {
             steps {
