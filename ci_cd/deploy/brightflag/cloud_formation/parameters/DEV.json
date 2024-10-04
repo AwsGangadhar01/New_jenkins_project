@@ -25,15 +25,15 @@
   },
   {
     "ParameterKey": "BucketName",
-    "ParameterValue": "synintegration"
+    "ParameterValue": "mycicdartifactsbucket"
   },
   {
     "ParameterKey": "AWSGlueRole",
-    "ParameterValue": "arn:aws:iam::259898999972:role/dda_glue_common"
+    "ParameterValue": "arn:aws:iam::471112749040:role/AwsGlueRole"
   },
   {
     "ParameterKey": "RegionName",
-    "ParameterValue": "eu-central-1"
+    "ParameterValue": "ap-south-1"
   },
   {
     "ParameterKey": "ExtractionGlueJobName",
@@ -50,9 +50,5 @@
   {
     "ParameterKey": "ConnectionType",
     "ParameterValue": "mio_dev"
-  },
-  {
-    "ParameterKey": "SynddfileBucketName",
-    "ParameterValue": "synddfile"
   }
 ]
